@@ -17,6 +17,9 @@
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
+# Textmesh Pro files
+[Aa]ssets/TextMesh*Pro/
+
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
 
@@ -28,6 +31,9 @@
 
 # Jetbrains Rider cache directory
 .idea/
+
+# Visual Studio Code cache directory
+.vscode/
 
 # Gradle cache directory
 .gradle/
