@@ -7,23 +7,16 @@ using TMPro;
 using UnityEngine;
 
 public class PanelAnimatorEvents : MonoBehaviour
-{ 
-    public MouseLook playerMouseLook;
-    public PlayerMovement playerMovement;
-    public TMP_InputField panelInputField;
-
-
+{
     public void DisablePlayerInteraction()
     {
         Cursor.lockState = CursorLockMode.None;
-        playerMouseLook.enabled = false;
-        playerMovement.enabled = false;
+        Time.timeScale = 0f;
     }
 
     public void EnablePlayerInteraction()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        playerMouseLook.enabled = true;
-        playerMovement.enabled = true;
+        Time.timeScale = 1f;
     }
 }
