@@ -13,7 +13,6 @@ public class TriggerDetector : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            questionGenerator.questionRequestComesFrom = QuestionRequestComesFrom.Maze;
             questionGenerator.DisplayQuestion();
         }
     }

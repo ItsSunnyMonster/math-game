@@ -32,11 +32,11 @@ RectTransform:
   m_Children:
   - {fileID: 4578393716320451595}
   m_Father: {fileID: 4578393715731799591}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.7495117, y: 10.778198}
+  m_AnchoredPosition: {x: -0.0029297, y: 9}
   m_SizeDelta: {x: 188.1741, y: 44.087}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4578393714883860096
@@ -422,8 +422,8 @@ RectTransform:
   m_Children:
   - {fileID: 4578393715800481822}
   - {fileID: 4578393716842604028}
-  - {fileID: 4578393716806342056}
   - {fileID: 4578393714883860103}
+  - {fileID: 4578393716806342056}
   - {fileID: 4578393716199780476}
   m_Father: {fileID: 4578393714961391703}
   m_RootOrder: 0
@@ -514,9 +514,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b7dea9a106eed49b5d02e33e4a1568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMouseLook: {fileID: 0}
-  playerMovement: {fileID: 0}
-  panelInputField: {fileID: 4578393716842604031}
 --- !u!1 &4578393715800481823
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,7 +854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4578393716199780476
 RectTransform:
   m_ObjectHideFlags: 0
@@ -875,7 +872,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.749469, y: -161.2218}
+  m_AnchoredPosition: {x: 0.000012398, y: -104.51}
   m_SizeDelta: {x: 188.18, y: 44.088}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4578393716199780473
@@ -1270,7 +1267,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4578393715731799591}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1421,11 +1418,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionTypes: 00000000010000000300000002000000
-  questionRequestComesFrom: 1
   questionDisplay: {fileID: 4578393715800481817}
   correctOrNot: {fileID: 4578393716806342059}
   inputField: {fileID: 4578393716842604031}
   continueButton: {fileID: 4578393716199780477}
+  quitButton: {fileID: 0}
   questionPanelAnimator: {fileID: 4578393715731799585}
 --- !u!1 &4578393716842604029
 GameObject:
@@ -1463,7 +1460,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.7495117, y: 64.7782}
+  m_AnchoredPosition: {x: -0.0029602, y: 64.7782}
   m_SizeDelta: {x: 231.7454, y: 47.5703}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4578393716842604025

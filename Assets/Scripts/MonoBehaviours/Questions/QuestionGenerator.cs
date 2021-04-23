@@ -16,15 +16,31 @@ public enum QuestionRequestComesFrom
 
 public class QuestionGenerator : MonoBehaviour
 {
+    public static QuestionGenerator instance { get; private set; }
     public QuestionType[] questionTypes;
-    public QuestionRequestComesFrom questionRequestComesFrom;
     public TextMeshProUGUI questionDisplay;
     public TextMeshProUGUI correctOrNot;
     public TMP_InputField inputField;
     public GameObject continueButton;
+    public GameObject quitButton;
     public Animator questionPanelAnimator;
 
+    public bool isQuestionPanelEnabled { get; private set; } = false;
+
     private Question question;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     public Question GetQuestionFromType(QuestionType questionType)
     {
@@ -33,11 +49,7 @@ public class QuestionGenerator : MonoBehaviour
 
     public void DisplayQuestion()
     {
-        //enable question panel
-        questionPanelAnimator.SetTrigger("Enable");
-
-        //unlock cursor
-        Cursor.lockState = CursorLockMode.None;
+        EnableQuestionPanel();
 
         //setup question
         question = GetQuestionFromType(questionTypes[Random.Range(0, questionTypes.Length)]);
@@ -80,14 +92,18 @@ public class QuestionGenerator : MonoBehaviour
     //called when continue is clicked
     public void OnContinue()
     {
-        if (questionRequestComesFrom == QuestionRequestComesFrom.Questions)
-        {
-            DisplayQuestion();
-        }
-        else if (questionRequestComesFrom == QuestionRequestComesFrom.Maze)
-        {
-            //disable question panel
-            questionPanelAnimator.SetTrigger("Disable");
-        }
+        DisableQuestionPanel();
+    }
+
+    private void EnableQuestionPanel()
+    {
+        questionPanelAnimator.SetTrigger("Enable");
+        isQuestionPanelEnabled = true;
+    }
+
+    public void DisableQuestionPanel()
+    {
+        questionPanelAnimator.SetTrigger("Disable");
+        isQuestionPanelEnabled = false;
     }
 }

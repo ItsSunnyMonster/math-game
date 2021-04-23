@@ -11,7 +11,7 @@ public enum QuestionType
     AdditionOfTwoDigitNumbers,
     ShortDivision,
     SubtractionOfTwoDigitNumbers
-}
+} 
 
 public class Question
 {
