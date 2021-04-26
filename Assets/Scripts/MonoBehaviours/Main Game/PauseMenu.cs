@@ -3,68 +3,90 @@
 // https://www.youtube.com/channel/UCbKQHYlzpR_pa5UL7JNP3kg/
 //
 
+using MonoBehaviours.Questions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+namespace MonoBehaviours.Main_Game
 {
-    public static bool GameIsPaused = false;
-
-    public GameObject pauseMenuUI;
-
-    private bool lockCursorAfterResume = true;
-    private float timeScaleBeforePause = 1f;
-
-    private void Update()
+    public class PauseMenu : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        public static bool gameIsPaused;
+
+        public GameObject pauseMenuUI;
+
+        private bool _lockCursorAfterResume = true;
+        private float _timeScaleBeforePause = 1f;
+
+        private void Update()
         {
-            if (GameIsPaused)
+            //check for escape input
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Resume();
+                if (gameIsPaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
             }
-            else
+        }
+
+        public void Resume()
+        {
+            //hide ui
+            pauseMenuUI.SetActive(false);
+            
+            //restore time scale
+            Time.timeScale = _timeScaleBeforePause;
+            
+            //restore cursor lock mode
+            if (_lockCursorAfterResume)
             {
-                Pause();
+                Cursor.lockState = CursorLockMode.Locked;
             }
+            
+            //unpause the game
+            gameIsPaused = false;
         }
-    }
 
-    public void Resume()
-    {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = timeScaleBeforePause;
-        if (lockCursorAfterResume)
+        //called when click on back to menu button
+        public void BackToMenu()
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            //restore time scale
+            Time.timeScale = 1f;
+            
+            //disable question panel if enabled
+            if (QuestionGenerator.Instance.IsQuestionPanelEnabled)
+            {
+                QuestionGenerator.Instance.DisableQuestionPanel();
+            }
+            
+            //load scene
+            SceneManager.LoadScene("Menu");
         }
-        GameIsPaused = false;
-    }
 
-    public void BackToMenu()
-    {
-        Time.timeScale = 1f;
-        if (QuestionGenerator.instance.isQuestionPanelEnabled)
+        private void Pause()
         {
-            QuestionGenerator.instance.DisableQuestionPanel();
+            //open ui
+            pauseMenuUI.SetActive(true);
+            
+            //backup time scale
+            _timeScaleBeforePause = Time.timeScale;
+            
+            //set time scale
+            Time.timeScale = 0f;
+            
+            //backup cursor lock state
+            _lockCursorAfterResume = Cursor.lockState == CursorLockMode.Locked;
+            
+            //set cursor lock state
+            Cursor.lockState = CursorLockMode.None;
+            
+            //pause the game
+            gameIsPaused = true;
         }
-        SceneManager.LoadScene("Menu");
-    }
-
-    private void Pause()
-    {
-        pauseMenuUI.SetActive(true);
-        timeScaleBeforePause = Time.timeScale;
-        Time.timeScale = 0f;
-        if (Cursor.lockState == CursorLockMode.Locked)
-        {
-            lockCursorAfterResume = true;
-        }
-        else
-        {
-            lockCursorAfterResume = false;
-        }
-        Cursor.lockState = CursorLockMode.None;
-        GameIsPaused = true;
     }
 }

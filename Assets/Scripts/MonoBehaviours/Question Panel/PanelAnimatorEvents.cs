@@ -3,20 +3,36 @@
 // https://www.youtube.com/channel/UCbKQHYlzpR_pa5UL7JNP3kg/
 //
 
-using TMPro;
+using MonoBehaviours.Player;
 using UnityEngine;
 
-public class PanelAnimatorEvents : MonoBehaviour
+namespace MonoBehaviours.Question_Panel
 {
-    public void DisablePlayerInteraction()
+    public class PanelAnimatorEvents : MonoBehaviour
     {
-        Cursor.lockState = CursorLockMode.None;
-        Time.timeScale = 0f;
-    }
+        public PlayerMovement playerMovement;
+        public MouseLook mouseLook;
+        
+        //called when question panel is opened
+        public void DisablePlayerInteraction()
+        {
+            //unlock cursor
+            Cursor.lockState = CursorLockMode.None;
+            
+            //disable player interactions
+            mouseLook.enabled = false;
+            playerMovement.enabled = false;
+        }
 
-    public void EnablePlayerInteraction()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1f;
+        //called when question panel is closed
+        public void EnablePlayerInteraction()
+        {
+            //lock cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            
+            //enable player interactions
+            playerMovement.enabled = true;
+            mouseLook.enabled = true;
+        }
     }
 }

@@ -6,16 +6,38 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+namespace MonoBehaviours.Main_Game
 {
-    public void Play()
+    public class GameManager : MonoBehaviour
     {
-        SceneManager.LoadScene("Maze");
-    }
+        public static GameManager Instance { get; private set; }
 
-    public void Quit()
-    {
-        Debug.Log("Quit");
-        Application.Quit();
+        private void Awake()
+        {
+            //check for duplicates and set singleton
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+            DontDestroyOnLoad(gameObject);
+        }
+
+        public void Play()
+        {
+            //load game scene
+            SceneManager.LoadScene("Game");
+        }
+
+        public void Quit()
+        {
+            //quit
+            Debug.Log("Quit");
+            Application.Quit();
+        }
     }
 }

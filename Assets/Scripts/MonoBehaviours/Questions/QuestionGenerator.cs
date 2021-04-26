@@ -4,106 +4,117 @@
 //
 
 using System.Collections;
+using Classes.Questions;
 using TMPro;
 using UnityEngine;
 
-//where did the question request come from
-public enum QuestionRequestComesFrom
+namespace MonoBehaviours.Questions
 {
-    Questions,
-    Maze
-}
-
-public class QuestionGenerator : MonoBehaviour
-{
-    public static QuestionGenerator instance { get; private set; }
-    public QuestionType[] questionTypes;
-    public TextMeshProUGUI questionDisplay;
-    public TextMeshProUGUI correctOrNot;
-    public TMP_InputField inputField;
-    public GameObject continueButton;
-    public GameObject quitButton;
-    public Animator questionPanelAnimator;
-
-    public bool isQuestionPanelEnabled { get; private set; } = false;
-
-    private Question question;
-
-    private void Awake()
+    //where did the question request come from
+    public enum QuestionRequestComesFrom
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        Questions,
+        Maze
     }
 
-    public Question GetQuestionFromType(QuestionType questionType)
+    public class QuestionGenerator : MonoBehaviour
     {
-        return new Question(questionType);
-    }
+        public static QuestionGenerator Instance { get; private set; }
+        public QuestionType[] questionTypes;
+        public TextMeshProUGUI questionDisplay;
+        public TextMeshProUGUI correctOrNot;
+        public TMP_InputField inputField;
+        public GameObject continueButton;
+        public Animator questionPanelAnimator;
 
-    public void DisplayQuestion()
-    {
-        EnableQuestionPanel();
+        public bool IsQuestionPanelEnabled { get; private set; } = false;
 
-        //setup question
-        question = GetQuestionFromType(questionTypes[Random.Range(0, questionTypes.Length)]);
+        private Question _question;
+        private static readonly int Enable = Animator.StringToHash("Enable");
+        private static readonly int Disable = Animator.StringToHash("Disable");
 
-        //setup UI
-        questionDisplay.text = question.questionBody;
-        inputField.text = "";
-        StartCoroutine(SelectInputField());
-        correctOrNot.text = "";
-        continueButton.SetActive(false);
-    }
-
-    private IEnumerator SelectInputField()
-    {
-        yield return null;
-        inputField.Select();
-    }
-
-    //called when user clicks submit button
-    public void OnSubmit()
-    {
-        //null and empty check
-        if (inputField.text == null || inputField.text == "" || question.correctAnswer == null || question.correctAnswer == "")
-            return;
-
-        //answer check
-        if (inputField.text == question.correctAnswer)
+        private void Awake()
         {
-            correctOrNot.text = "You are correct! ";
-        }
-        else
-        {
-            correctOrNot.text = "The correct answer is " + question.correctAnswer;
+            //set singleton
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            } 
         }
 
-        //enable "continue" button
-        continueButton.SetActive(true);
-    }
+        public Question GetQuestionFromType(QuestionType questionType)
+        {
+            //create a new question with type of questionType and return
+            return new Question(questionType);
+        }
 
-    //called when continue is clicked
-    public void OnContinue()
-    {
-        DisableQuestionPanel();
-    }
+        public void DisplayQuestion()
+        {
+            //enable panel
+            EnableQuestionPanel();
 
-    private void EnableQuestionPanel()
-    {
-        questionPanelAnimator.SetTrigger("Enable");
-        isQuestionPanelEnabled = true;
-    }
+            //setup question
+            _question = GetQuestionFromType(questionTypes[Random.Range(0, questionTypes.Length)]);
 
-    public void DisableQuestionPanel()
-    {
-        questionPanelAnimator.SetTrigger("Disable");
-        isQuestionPanelEnabled = false;
+            //setup UI
+            questionDisplay.text = _question.questionBody;
+            inputField.text = "";
+            //have to wait a frame to select input field
+            StartCoroutine(SelectInputField());
+            correctOrNot.text = "";
+            continueButton.SetActive(false);
+        }
+
+        private IEnumerator SelectInputField()
+        {
+            //wait a frame
+            yield return null;
+            
+            //select input field
+            inputField.Select();
+        }
+
+        //called when user clicks submit button
+        public void OnSubmit()
+        {
+            //null and empty check
+            if (string.IsNullOrEmpty(inputField.text) || string.IsNullOrEmpty(_question.correctAnswer))
+                return;
+
+            //answer check
+            if (inputField.text == _question.correctAnswer)
+            {
+                correctOrNot.text = "You are correct! ";
+            }
+            else
+            {
+                correctOrNot.text = "The correct answer is " + _question.correctAnswer;
+            }
+
+            //enable "continue" button
+            continueButton.SetActive(true);
+        }
+
+        //called when continue is clicked
+        public void OnContinue()
+        {
+            DisableQuestionPanel();
+        }
+        
+        private void EnableQuestionPanel()
+        {
+            questionPanelAnimator.SetTrigger(Enable);
+            IsQuestionPanelEnabled = true;
+        }
+
+        public void DisableQuestionPanel()
+        {
+            questionPanelAnimator.SetTrigger(Disable);
+            IsQuestionPanelEnabled = false;
+        }
     }
 }
