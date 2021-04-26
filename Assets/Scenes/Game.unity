@@ -15824,18 +15824,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 371968242239420, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 371968242239420, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 371968242239420, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 1999866284452992788, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -15883,30 +15871,6 @@ PrefabInstance:
     - target: {fileID: 1999866284452992790, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
       propertyPath: m_Name
       value: First Person Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1999866284925639374, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
-      propertyPath: near clip plane
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1999866284925639374, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 887
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125320303710073082, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125320303710073082, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125320303710073082, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125320303710073082, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 26.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed329fa1fa5d87b41b3a3aa4742057d8, type: 3}
@@ -18429,7 +18393,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

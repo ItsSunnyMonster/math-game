@@ -1424,7 +1424,6 @@ MonoBehaviour:
   correctOrNot: {fileID: 4578393716806342059}
   inputField: {fileID: 4578393716842604031}
   continueButton: {fileID: 4578393716199780477}
-  quitButton: {fileID: 0}
   questionPanelAnimator: {fileID: 4578393715731799585}
 --- !u!1 &4578393716842604029
 GameObject:
