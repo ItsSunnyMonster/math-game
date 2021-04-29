@@ -39,5 +39,11 @@ namespace MonoBehaviours.Main_Game
             Debug.Log("Quit");
             Application.Quit();
         }
+
+        public void GameOver()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadScene("Game Over");
+        }
     }
 }

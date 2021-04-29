@@ -3,6 +3,7 @@
 // https://www.youtube.com/channel/UCbKQHYlzpR_pa5UL7JNP3kg/
 //
 
+using System.Globalization;
 using UnityEngine;
 
 namespace Classes.Questions
@@ -12,7 +13,11 @@ namespace Classes.Questions
         TimesTable,
         AdditionOfTwoDigitNumbers,
         ShortDivision,
-        SubtractionOfTwoDigitNumbers
+        SubtractionOfTwoDigitNumbers,
+        Sqrt,
+        Square,
+        Cube,
+        ZerothPower
     } 
 
     public class Question
@@ -33,7 +38,7 @@ namespace Classes.Questions
                 var multiplier2 = Random.Range(0, 11);
 
                 //setup question body
-                questionBody = multiplier1.ToString() + " × " + multiplier2.ToString() + " = ? ";
+                questionBody = multiplier1 + " × " + multiplier2 + " = ? ";
 
                 //setup correct answer
                 correctAnswer = (multiplier1 * multiplier2).ToString();
@@ -45,7 +50,7 @@ namespace Classes.Questions
                 var addend2 = Random.Range(0, 100);
 
                 //setup question body
-                questionBody = addend1.ToString() + " + " + addend2.ToString() + " = ? ";
+                questionBody = addend1 + " + " + addend2 + " = ? ";
 
                 //setup correct answer
                 correctAnswer = (addend1 + addend2).ToString();
@@ -68,7 +73,7 @@ namespace Classes.Questions
                 }
 
                 //setup question body
-                questionBody = dividend.ToString() + " ÷ " + divisor.ToString() + " = ? ";
+                questionBody = dividend + " ÷ " + divisor + " = ? ";
 
                 //setup correct answer
                 correctAnswer = (dividend / divisor).ToString();
@@ -91,10 +96,55 @@ namespace Classes.Questions
                 }
 
                 //setup question body
-                questionBody = subtrahend.ToString() + " - " + subtractor.ToString() + " = ? ";
+                questionBody = subtrahend + " - " + subtractor + " = ? ";
 
                 //setup correct answer
                 correctAnswer = (subtrahend - subtractor).ToString();
+            }
+            else if (this.questionType == QuestionType.Sqrt)
+            {
+                //create vars
+                var perfectSquare = Random.Range(0, 13);
+                var radicand = Mathf.Pow(perfectSquare, 2);
+                
+                //setup question body
+                questionBody = "What is the square root of " + radicand + "?";
+                
+                //setup correct answer
+                correctAnswer = perfectSquare.ToString();
+            }
+            else if (this.questionType == QuestionType.Square)
+            {
+                //create vars
+                var beforeSquare = Random.Range(0, 13);
+                
+                //setup question body
+                questionBody = beforeSquare + "² = ?";
+                
+                //setup correct answer
+                correctAnswer = Mathf.Pow(beforeSquare, 2).ToString(CultureInfo.InvariantCulture);
+            }
+            else if (this.questionType == QuestionType.Cube)
+            {
+                //create vars
+                var beforeCube = Random.Range(0, 6);
+                
+                //setup question body
+                questionBody = beforeCube + "³ = ?";
+                
+                //setup correct answer
+                correctAnswer = Mathf.Pow(beforeCube, 3).ToString(CultureInfo.InvariantCulture);
+            }
+            else if (this.questionType == QuestionType.ZerothPower)
+            {
+                //create vars
+                var beforeZerothPower = Random.Range(1, 999999999);
+                
+                //setup question body
+                questionBody = "What is " + beforeZerothPower + " to the 0th power?";
+                
+                //setup correct answer
+                correctAnswer = "1";
             }
         }
     }

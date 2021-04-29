@@ -3,8 +3,10 @@
 // https://www.youtube.com/channel/UCbKQHYlzpR_pa5UL7JNP3kg/
 //
 
+using System;
 using Classes;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace MonoBehaviours.Player
 {
@@ -80,7 +82,6 @@ namespace MonoBehaviours.Player
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y, minZ);
             }
-
         }
 
         private void OnDrawGizmos()

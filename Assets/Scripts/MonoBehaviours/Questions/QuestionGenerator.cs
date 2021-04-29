@@ -5,6 +5,8 @@
 
 using System.Collections;
 using Classes.Questions;
+using MonoBehaviours.Main_Game;
+using MonoBehaviours.Question_Mark;
 using TMPro;
 using UnityEngine;
 
@@ -20,18 +22,21 @@ namespace MonoBehaviours.Questions
     public class QuestionGenerator : MonoBehaviour
     {
         public static QuestionGenerator Instance { get; private set; }
-        public QuestionType[] questionTypes;
+        public QuestionType[] easyQuestionTypes;
+        public QuestionType[] hardQuestionTypes;
         public TextMeshProUGUI questionDisplay;
         public TextMeshProUGUI correctOrNot;
         public TMP_InputField inputField;
         public GameObject continueButton;
         public Animator questionPanelAnimator;
+        public QuestionMarkSpawner questionMarkSpawner;
 
         public bool IsQuestionPanelEnabled { get; private set; } = false;
 
         private Question _question;
         private static readonly int Enable = Animator.StringToHash("Enable");
         private static readonly int Disable = Animator.StringToHash("Disable");
+        private bool correct;
 
         private void Awake()
         {
@@ -46,19 +51,21 @@ namespace MonoBehaviours.Questions
             } 
         }
 
-        public Question GetQuestionFromType(QuestionType questionType)
+        private Question GetQuestionFromType(QuestionType questionType)
         {
             //create a new question with type of questionType and return
             return new Question(questionType);
         }
 
-        public void DisplayQuestion()
+        public void DisplayQuestion(bool isQuestionHard)
         {
             //enable panel
             EnableQuestionPanel();
 
             //setup question
-            _question = GetQuestionFromType(questionTypes[Random.Range(0, questionTypes.Length)]);
+            _question = GetQuestionFromType(isQuestionHard
+                ? hardQuestionTypes[Random.Range(0, hardQuestionTypes.Length)]
+                : easyQuestionTypes[Random.Range(0, easyQuestionTypes.Length)]);
 
             //setup UI
             questionDisplay.text = _question.questionBody;
@@ -89,10 +96,12 @@ namespace MonoBehaviours.Questions
             if (inputField.text == _question.correctAnswer)
             {
                 correctOrNot.text = "You are correct! ";
+                correct = true;
             }
             else
             {
                 correctOrNot.text = "The correct answer is " + _question.correctAnswer;
+                correct = false;
             }
 
             //enable "continue" button
@@ -103,6 +112,18 @@ namespace MonoBehaviours.Questions
         public void OnContinue()
         {
             DisableQuestionPanel();
+            if (correct)
+            {
+                if (questionMarkSpawner.questionMarksInScene.Count == 0)
+                {
+                    GameManager.Instance.GameOver();
+                }
+                return;
+            }
+            for (var i = 0; i < 2; i++)
+            {
+                questionMarkSpawner.SpawnQuestionMark();
+            }
         }
         
         private void EnableQuestionPanel()

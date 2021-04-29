@@ -18,10 +18,10 @@ namespace Editor
             var questionGen = (QuestionGenerator)target;
 
             DrawDefaultInspector();
-
+            
             if (GUILayout.Button("Display Question"))
             {
-                questionGen.DisplayQuestion();
+                questionGen.DisplayQuestion(true);
             }
         }
     }
