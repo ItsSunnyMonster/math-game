@@ -43,6 +43,10 @@ namespace Classes
             {
                 shortForm += $"{t.Seconds.ToString()}s";
             }
+            if (shortForm == "")
+            {
+                shortForm += "0s";
+            }
             return shortForm;
         } 
     }

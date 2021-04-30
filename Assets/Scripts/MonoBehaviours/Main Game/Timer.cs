@@ -13,8 +13,21 @@ namespace MonoBehaviours.Main_Game
     public class Timer : MonoBehaviour
     {
         public TextMeshProUGUI timerText;
-        
-        private int _seconds = 0;
+        public static Timer Instance { get; private set; }
+
+        public int time = 0;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Debug.LogWarning("There are more than 1 timers in the scene. Make sure there is only one. ");
+            }
+        }
 
         private void Start()
         {
@@ -23,9 +36,9 @@ namespace MonoBehaviours.Main_Game
 
         private void UpdateTimer()
         {
-            _seconds++;
+            time++;
 
-            var timeSpan = TimeSpan.FromSeconds(_seconds);
+            var timeSpan = TimeSpan.FromSeconds(time);
             timerText.text = "Time elapsed: " + HelperFunctions.TimeSpanToShortForm(timeSpan);
         }
     }

@@ -62,6 +62,9 @@ namespace MonoBehaviours.Questions
             //enable panel
             EnableQuestionPanel();
 
+            //play collect sound
+            AudioManager.instance.Play("Collect");
+            
             //setup question
             _question = GetQuestionFromType(isQuestionHard
                 ? hardQuestionTypes[Random.Range(0, hardQuestionTypes.Length)]
@@ -95,11 +98,13 @@ namespace MonoBehaviours.Questions
             //answer check
             if (inputField.text == _question.correctAnswer)
             {
+                AudioManager.instance.Play("Correct");
                 correctOrNot.text = "You are correct! ";
                 correct = true;
             }
             else
             {
+                AudioManager.instance.Play("Incorrect");
                 correctOrNot.text = "The correct answer is " + _question.correctAnswer;
                 correct = false;
             }
@@ -116,7 +121,7 @@ namespace MonoBehaviours.Questions
             {
                 if (questionMarkSpawner.questionMarksInScene.Count == 0)
                 {
-                    GameManager.Instance.GameOver();
+                    StartCoroutine(GameManager.Instance.GameOver());
                 }
                 return;
             }
