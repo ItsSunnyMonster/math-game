@@ -15,16 +15,6 @@ namespace MonoBehaviours.Playfab
     {
         public static PlayfabManager Instance { get; private set; }
 
-        public delegate void LeaderboardReceivedDel(List<PlayerLeaderboardEntry> entries);
-
-        public delegate void PlayerLeaderboardItemReceivedDel(List<PlayerLeaderboardEntry> entries);
-
-        public delegate void LeaderboardSentDel();
-
-        public event LeaderboardReceivedDel OnLeaderboardReceived;
-        public event PlayerLeaderboardItemReceivedDel OnPlayerLeaderboardItemReceived;
-        public event LeaderboardSentDel OnLeaderboardSent;
-        
         private void Awake()
         {
             if (Instance == null)
@@ -61,12 +51,12 @@ namespace MonoBehaviours.Playfab
         {
             Debug.Log("Login successfully! ");
         }
-        
+
         #endregion
 
         #region SendNewValueToLeaderBoard
 
-        public void SendNewValueToLeaderBoard(int value)
+        public void SendNewValueToLeaderBoard(int value, Action<UpdatePlayerStatisticsResult> UpdateCallback)
         {
             var request = new UpdatePlayerStatisticsRequest
             {
@@ -79,20 +69,14 @@ namespace MonoBehaviours.Playfab
                     }
                 }
             };
-            PlayFabClientAPI.UpdatePlayerStatistics(request, OnLeaderBoardUpdate, OnError);
+            PlayFabClientAPI.UpdatePlayerStatistics(request, UpdateCallback, OnError);
         }
 
-        private void OnLeaderBoardUpdate(UpdatePlayerStatisticsResult result)
-        {
-            Debug.Log("Leaderboard update successful! ");
-            OnLeaderboardSent?.Invoke();
-        }
-        
         #endregion
 
         #region GetLeaderBoard
 
-        public void GetLeaderBoard()
+        public void GetLeaderBoard(Action<GetLeaderboardResult> GetCallback)
         {
             var request = new GetLeaderboardRequest
             {
@@ -100,31 +84,21 @@ namespace MonoBehaviours.Playfab
                 StartPosition = 0,
                 MaxResultsCount = 1
             };
-            PlayFabClientAPI.GetLeaderboard(request, OnGetLeaderBoardSuccess, OnError);
+            PlayFabClientAPI.GetLeaderboard(request, GetCallback, OnError);
         }
 
-        private void OnGetLeaderBoardSuccess(GetLeaderboardResult result)
-        {
-            OnLeaderboardReceived?.Invoke(result.Leaderboard);
-        }
-        
         #endregion
 
         #region GetPlayerLeaderBoardItem
 
-        public void GetPlayerLeaderBoardItem()
+        public void GetPlayerLeaderBoardItem(Action<GetLeaderboardAroundPlayerResult> GetCallback)
         {
             var request = new GetLeaderboardAroundPlayerRequest
             {
                 StatisticName = "High Score",
                 MaxResultsCount = 1
             };
-            PlayFabClientAPI.GetLeaderboardAroundPlayer(request, OnGetLeaderBoardAroundPlayerSuccess, OnError);
-        }
-
-        private void OnGetLeaderBoardAroundPlayerSuccess(GetLeaderboardAroundPlayerResult result)
-        {
-            OnPlayerLeaderboardItemReceived?.Invoke(result.Leaderboard);
+            PlayFabClientAPI.GetLeaderboardAroundPlayer(request, GetCallback, OnError);
         }
 
         #endregion

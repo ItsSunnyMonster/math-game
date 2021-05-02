@@ -59,25 +59,22 @@ namespace MonoBehaviours.Main_Game
         {
             yield return null;
             Cursor.lockState = CursorLockMode.None;
-            
-            PlayfabManager.Instance.OnPlayerLeaderboardItemReceived += ReceiveItem;
-            PlayfabManager.Instance.GetPlayerLeaderBoardItem();
-            
-            PlayfabManager.Instance.OnLeaderboardReceived += ReceiveLeaderboard;
-            PlayfabManager.Instance.GetLeaderBoard();
-            
+
+            PlayfabManager.Instance.GetPlayerLeaderBoardItem(ReceiveItem);
+
+            PlayfabManager.Instance.GetLeaderBoard(ReceiveLeaderboard);
+
             timeThisRound = Timer.Instance.time;
-            PlayfabManager.Instance.OnLeaderboardSent += LeaderboardSent;
-            PlayfabManager.Instance.SendNewValueToLeaderBoard(timeThisRound);
+            PlayfabManager.Instance.SendNewValueToLeaderBoard(timeThisRound, LeaderboardSent);
         }
 
-        private void ReceiveItem(List<PlayerLeaderboardEntry> entries)
+        private void ReceiveItem(GetLeaderboardAroundPlayerResult result)
         {
-            if (entries.Count > 0)
+            if (result.Leaderboard.Count > 0)
             {
-                personalHighScoreBefore = entries[0].StatValue;
+                personalHighScoreBefore = result.Leaderboard[0].StatValue;
             }
-            PlayfabManager.Instance.OnPlayerLeaderboardItemReceived -= ReceiveItem;
+
             _receivedPlayerItem = true;
             if (_receivedPlayerItem && _receivedLeaderboard && _sentLeaderboard)
             {
@@ -85,13 +82,13 @@ namespace MonoBehaviours.Main_Game
             }
         }
 
-        private void ReceiveLeaderboard(List<PlayerLeaderboardEntry> entries)
+        private void ReceiveLeaderboard(GetLeaderboardResult result)
         {
-            if (entries.Count > 0)
+            if (result.Leaderboard.Count > 0)
             {
-                worldHighScoreBefore = entries[0].StatValue;
+                worldHighScoreBefore = result.Leaderboard[0].StatValue;
             }
-            PlayfabManager.Instance.OnLeaderboardReceived -= ReceiveLeaderboard;
+
             _receivedLeaderboard = true;
             if (_receivedPlayerItem && _receivedLeaderboard && _sentLeaderboard)
             {
@@ -99,9 +96,8 @@ namespace MonoBehaviours.Main_Game
             }
         }
 
-        private void LeaderboardSent()
+        private void LeaderboardSent(UpdatePlayerStatisticsResult result)
         {
-            PlayfabManager.Instance.OnLeaderboardSent -= LeaderboardSent;
             _sentLeaderboard = true;
             if (_receivedPlayerItem && _receivedLeaderboard && _sentLeaderboard)
             {

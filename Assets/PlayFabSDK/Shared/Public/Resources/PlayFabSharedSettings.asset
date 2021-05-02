@@ -15,7 +15,7 @@ MonoBehaviour:
   TitleId: F0789
   DeveloperSecretKey: OTYBUWXYEXPKCF3HDXCTO95WCFFM3SSKWQTF9CS8OFCW76M5K4
   ProductionEnvironmentUrl: 
-  RequestType: 2
+  RequestType: 0
   AdvertisingIdType: 
   AdvertisingIdValue: 
   DisableAdvertising: 0

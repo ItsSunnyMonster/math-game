@@ -8925,7 +8925,7 @@ MonoBehaviour:
   parent: {fileID: 1751060876}
   spawnHeight: 65.45
   hostileRate: 0.3
-  questionMarksToSpawn: 15
+  questionMarksToSpawn: 1
   questionMarksInScene: []
   maxX: 155.87
   minX: -56.1

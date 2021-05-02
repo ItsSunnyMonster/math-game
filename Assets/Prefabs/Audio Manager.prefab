@@ -51,7 +51,9 @@ MonoBehaviour:
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
+    spatialBlend: 0
     loop: 0
+    playOnAwake: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: Collect
@@ -60,7 +62,9 @@ MonoBehaviour:
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
+    spatialBlend: 0
     loop: 0
+    playOnAwake: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: Correct
@@ -69,7 +73,9 @@ MonoBehaviour:
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
+    spatialBlend: 0
     loop: 0
+    playOnAwake: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: Incorrect
@@ -78,7 +84,9 @@ MonoBehaviour:
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
+    spatialBlend: 0
     loop: 0
+    playOnAwake: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: Background Music
@@ -87,6 +95,8 @@ MonoBehaviour:
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
+    spatialBlend: 1
     loop: 1
+    playOnAwake: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
